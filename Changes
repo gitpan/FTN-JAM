@@ -1,5 +1,28 @@
 Revision history for ftn-jam
 
+0.10    23:32 29 October 2011
+    - Correct issue with using bareword file handles in the OpenMB and CreateMB
+    functions.  For the OpenMB function, it also resolves bug # 66608.
+
+0.09    21:50 29 October 2011
+    - Change the open() calls in JAM.pm from their two argument form to their
+    three argument form in the OpenMB & CreateMB functions.
+
+0.08    21:03 29 October 2011
+    - Add ReadOnly to Makefile.PL as a required module.
+    - Correct issue with how constants are defined, using the ReadOnly function
+    instead of the 'constant' pragma in JAM.pm.
+
+0.07    16:56 29 October 2011
+    - Corrected issue with the following subroutines not ending with a return:
+    CloseMB, UnlockMB, and FindUser.
+
+0.06    20 October 2011
+    - Move the file doc/ToDo to the lib/FTN/JAM source directory, rename
+    and reformat the file as ToDo.pod.
+    - Reorganized the documentation in JAM.pm: adding a SEE ALSO section,
+    cleaning up white space,and expanding the ACKNOWLEDGEMENTS section.
+
 0.05    19 October 2011
     - Update copyright years to include 2011.
     - A bug in line 634 of JAM.pm was causing "Not a HASH reference" error
