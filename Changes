@@ -1,4 +1,16 @@
-Revision history for ftn-jam
+Revision history for FTN-JAM
+
+0.13    19:23 31 October 2011
+    - Use 'croak' instead of 'die' when checking the number of arguments in the
+    functions in JAM.pm module.
+
+0.12    18:24 31 October 2011
+    - The "$FTN::JAM::WriteMBHeader" in line 1018 of JAM.pm is a function call,
+     not a variable.  Remove the "$" from that, as it is a typo.
+
+0.11    16:22 31 October 2011
+    - Because of possible issues with mixed high and low-precedence booleans in
+    lines 146 & 225, use '||' instead of 'or'.
 
 0.10    23:32 29 October 2011
     - Correct issue with using bareword file handles in the OpenMB and CreateMB
