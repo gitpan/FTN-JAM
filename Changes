@@ -1,5 +1,34 @@
 Revision history for FTN-JAM
 
+0.20    19:42  9 September 2012
+    - Create initial version of t/manifest.t test script.
+    - Add t/manifest.t and t/01-basic.t to the MANIFEST file.
+    - Correct the URL for browsing the FTN::JAM git repository at SourceForge.
+
+0.19    14:55  9 September 2012
+    - Rearrange version information and POD in lib/FTN/JAM/Attr.pm.
+    - Minor whitespace clean up plus update configuration for clean and dist
+      targets in Makefile.PL.
+
+0.18    12:25  9 September 2012
+    - Move package FTN::JAM::Errnum into its own file.
+    - Add lib/FTN/JAM/Errnum.pm to MANIFEST.
+    - Add lib/FTN/JAM/Errnum.pm to t/00-load.t.
+
+0.17    11:25  9 September 2012
+    - Move package FTN::JAM::Attr into its own file.
+    - Add lib/FTN/JAM/Attr.pm to MANIFEST.
+    - Add lib/FTN/JAM/Attr.pm to t/00-load.t.
+
+0.16    09:25  9 September 2012
+    - Move package FTN::JAM::Subfields into its own file.
+    - Add lib/FTN/JAM/Subfields.pm to MANIFEST.
+    - Add lib/FTN/JAM/Subfields.pm to t/00-load.t.
+
+0.15    07:52  9 September 2012
+    - Create initial version of the t/01-basic.t test script.
+    - Update Robert James Clay copyright years to include 2012.
+
 0.14    00:35  1 November 2011
     - Use 'our' instead of 'my' when setting the Readonly variables in JAM.pm.
 
@@ -9,7 +38,7 @@ Revision history for FTN-JAM
 
 0.12    18:24 31 October 2011
     - The "$FTN::JAM::WriteMBHeader" in line 1018 of JAM.pm is a function call,
-     not a variable.  Remove the "$" from that, as it is a typo.
+     not a variable. Remove the "$" from that, as it is a typo.
 
 0.11    16:22 31 October 2011
     - Because of possible issues with mixed high and low-precedence booleans in
@@ -17,7 +46,7 @@ Revision history for FTN-JAM
 
 0.10    23:32 29 October 2011
     - Correct issue with using bareword file handles in the OpenMB and CreateMB
-    functions.  For the OpenMB function, it also resolves bug # 66608.
+    functions. For the OpenMB function, it also resolves bug # 66608.
 
 0.09    21:50 29 October 2011
     - Change the open() calls in JAM.pm from their two argument form to their
@@ -41,8 +70,8 @@ Revision history for FTN-JAM
 0.05    19 October 2011
     - Update copyright years to include 2011.
     - A bug in line 634 of JAM.pm was causing "Not a HASH reference" error
-    message.  A abolychev@gmail.com also found the same issue and reported it.
-    Corrected by changing the line to "@$subfieldsref = ();",  which resolves
+    message. A abolychev@gmail.com also found the same issue and reported it.
+    Corrected by changing the line to "@$subfieldsref = ();", which resolves
     bug # 66607.
 
 0.04    22 August 2010
@@ -57,9 +86,9 @@ Revision history for FTN-JAM
     - Updated documentation in README and the POD in lib/FTN/JAM.pm:
     Corrected the subroutines error message package references. Corrected
     the sub-package naming and references. Edits for spelling, wording, and
-    formating. Added a module usage summary to the SYNOPIS section.  Moved
-    the syntax comments to their POD section.  Correct the subroutine error
-    message package references. 
+    formating. Added a module usage summary to the SYNOPIS section. Moved
+    the syntax comments to their POD section. Correct the subroutine error
+    message package references.
 
 0.02    5 July 2010
     - Adapted v0.02 of FTN::JAM from v0.02 of the public domain Perl::JAM,
