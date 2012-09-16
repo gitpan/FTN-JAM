@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               FTN-JAM
-version:            0.20
+version:            0.30
 abstract:           A Perl extension for handleing JAM messagebases.
 author:
     - Robert James Clay <jame@rocasa.us>

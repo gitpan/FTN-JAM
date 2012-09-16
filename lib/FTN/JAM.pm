@@ -9,19 +9,17 @@ use Carp;
 use Time::Local;
 use Time::Zone;
 
-use vars qw($Errnum);
-
 =head1 NAME
 
 FTN::JAM - A Perl extension for handleing JAM messagebases.
 
 =head1 VERSION
 
-Version 0.20
+Version 0.30
 
 =cut
 
-our $VERSION = '0.20';
+our $VERSION = '0.30';
 
 =head1 SYNOPSIS
 
@@ -50,6 +48,13 @@ RemoveMB, LockMB, UnlockMB, ReadMBHeader, WriteMBHeader, GetMBSize, ReadMessage,
 ChangeMessage, AddMessage, Crc32, FindUser, GetLastRead, SetLastRead, TimeToLocal,
 and LocalToTime.
 
+The global variable $Errnum is used for returning error numbers from functions 
+and can be accessed as $FTN::JAM::Errnum. It defaults to undefined.
+
+=cut
+
+our $Errnum;
+
 =head1 FUNCTIONS
 
 =head2 OpenMB
@@ -59,11 +64,9 @@ Syntax: $handle = FTN::JAM::OpenMB($jampath)
 =cut
 
 sub OpenMB {
-    if ( $#_ != 0 ) {
-        croak "Wrong number of arguments for FTN::JAM::OpenMB";
-    }
 
-    my $jampath = $_[0];
+    my ($jampath) = @_ or croak 'OpenMB requires a base file name and path as a parameter.';
+
     my ($JHR, $JDX, $JDT, $JLR);
 
     my $jhrres = open( $JHR, q{+<}, $jampath . ".jhr" );
@@ -97,16 +100,16 @@ sub OpenMB {
     my $old;
 
     $old = select($JHR);
-    $|   = 1;
+    local $|   = 1;
     select($old);
     $old = select($JDX);
-    $|   = 1;
+    local $|   = 1;
     select($old);
     $old = select($JDT);
-    $|   = 1;
+    local $|   = 1;
     select($old);
     $old = select($JLR);
-    $|   = 1;
+    local $|   = 1;
     select($old);
 
     my %filehash;
@@ -176,16 +179,16 @@ sub CreateMB {
     my $old;
 
     $old = select($JHR);
-    $|   = 1;
+    local $|   = 1;
     select($old);
     $old = select($JDX);
-    $|   = 1;
+    local $|   = 1;
     select($old);
     $old = select($JDT);
-    $|   = 1;
+    local $|   = 1;
     select($old);
     $old = select($JLR);
-    $|   = 1;
+    local $|   = 1;
     select($old);
 
     my %filehash;
@@ -223,18 +226,15 @@ Syntax: FTN::JAM::CloseMB($handle)
 =cut
 
 sub CloseMB {
-    if ( $#_ != 0 ) {
-        croak "Wrong number of arguments for FTN::JAM::CloseMB";
-    }
 
-    my $handleref = $_[0];
+    my ($handleref) = @_ or croak 'CloseMB requires a hash reference parameter.';
 
-    close( $$handleref{jdx} );
-    close( $$handleref{jhr} );
-    close( $$handleref{jdt} );
-    close( $$handleref{jlr} );
+    close( $$handleref{jdx} ) or croak "Unable to close: $!";
+    close( $$handleref{jhr} ) or croak "Unable to close: $!";
+    close( $$handleref{jdt} ) or croak "Unable to close: $!";
+    close( $$handleref{jlr} ) or croak "Unable to close: $!";
 
-    return;
+    return 1;
 }
 
 =head2 RemoveMB
@@ -244,11 +244,8 @@ Syntax: FTN::JAM::RemoveMB($jampath)
 =cut
 
 sub RemoveMB {
-    if ( $#_ != 0 ) {
-        croak "Wrong number of arguments for FTN::JAM::RemoveMB";
-    }
 
-    my $jampath = $_[0];
+    my ($jampath) = @_ or croak 'RemoveMB requires a base file name and path as a parameter.';
 
     my $hasjdx = ( -e $jampath . ".jdx" );
     my $hasjhr = ( -e $jampath . ".jhr" );
@@ -329,17 +326,14 @@ Syntax: FTN::JAM::UnlockMB($handle)
 =cut
 
 sub UnlockMB {
-    if ( $#_ != 0 ) {
-        croak "Wrong number of arguments for FTN::JAM::UnlockMB";
-    }
 
-    my $handleref = $_[0];
+    my ($handleref) = @_ or croak 'UnlockMB requires a reference to a file hash as a parameter.';
 
     if ( $$handleref{locked} ) {
         flock( $$handleref{jhr}, 8 );
         delete $$handleref{locked};
     }
-    return;
+    return 1;
 }
 
 =head2 ReadMBHeader
@@ -957,11 +951,8 @@ Syntax: $crc32 = FTN::JAM::Crc32($data)
 =cut
 
 sub Crc32 {
-    if ( $#_ != 0 ) {
-        croak "Wrong number of arguments for FTN::JAM::Crc32";
-    }
 
-    my $data = $_[0];
+    my ($data) = @_ or croak 'Crc32 requires the data to be checked as a parameter.';
 
     my $crc;
     my @table;
